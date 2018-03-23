@@ -1,0 +1,95 @@
+//方法一（按题目要求）
+#include <iostream>
+#include <stdio.h>
+#include <mm_malloc.h>
+#include <stdlib.h>
+using namespace std;
+
+struct fushu
+{
+    double real;
+    double i;
+};
+
+fushu* add(fushu a,fushu b)
+{
+    fushu* ret = (fushu*)malloc(sizeof(fushu));
+    ret->real = a.real + b.real;
+    ret->i = a.i + b.i;
+    return ret;
+}
+
+fushu* lminus(fushu a,fushu b)
+{
+    fushu* ret = (fushu*)malloc(sizeof(fushu));
+    ret->real = a.real - b.real;
+    ret->i = a.i - b.i;
+    return ret;
+}
+
+fushu* multiply(fushu a,fushu b)
+{
+    fushu* ret = (fushu*)malloc(sizeof(fushu));
+    ret->real = a.real*b.real - a.i*b.i;
+    ret->i = a.real*b.i + a.i*b.real;
+    return ret;
+}
+
+fushu* divide(fushu a,fushu b)
+{
+    fushu* ret = (fushu*)malloc(sizeof(fushu));
+    ret->real = (a.real*b.real + a.i*b.i)/(b.real*b.real + b.i*b.i);
+    ret->i = (a.i*b.real - a.real*b.i)/(b.real*b.real + b.i*b.i);
+    return ret;
+}
+
+int main()
+{
+    char sign;
+    fushu m;
+    fushu n;
+    scanf("%c%lf%lf%lf%lf",&sign,&m.real,&m.i,&n.real,&n.i);
+    if(sign == '+' )
+    {
+        add(m,n);
+        printf("%.2lf+%.2lfi\n",add(m,n)->real,add(m,n)->i);
+    }
+    if(sign == '-' )
+    {
+        lminus(m,n);
+        printf("%.2lf+%.2lfi\n",lminus(m,n)->real,lminus(m,n)->i);
+    }
+    if(sign == '*' )
+    {
+        multiply(m,n);
+        printf("%.2lf+%.2lfi\n",multiply(m,n)->real,multiply(m,n)->i);
+    }
+    if(sign == '/' )
+    {
+        divide(m,n);
+        printf("%.2lf+%.2lfi\n",divide(m,n)->real,divide(m,n)->i);
+    }
+    return 0;
+}
+
+
+//方法二（不按题目要求 accept）
+#include<stdio.h>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+char sign;
+double a, b, c, d;
+scanf("%c%lf%lf%lf%lf",&sign,&a,&b,&c,&d);
+if( sign == '+' )
+printf("%.2lf+%.2lfi",a+c,b+d);
+if( sign == '-' )
+printf("%.2lf+%.2lfi",a-c,b-d);
+if( sign == '*' )
+printf("%.2lf+%.2lfi",a*c-b*d,a*d+b*c);
+if( sign == '/' )
+printf("%.2lf+%.2lfi",(a*c + b*d)/(c*c + d*d),(b*c - a*d)/(c*c + d*d));
+return 0;
+}
