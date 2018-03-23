@@ -1,0 +1,72 @@
+#include <iostream>
+#include <stdio.h>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+int n,m;
+int my[101][101];
+int i,j;
+int x,y,k;
+char s;
+int dir;
+int dire[4][2] = {2,3,3,2,1,0,0,1};
+
+void translation(int &i, int &j, int d)
+{
+    dir = d;
+    switch(d)
+    {
+        case 0: i--;break;
+        case 1: i++;break;
+        case 2: j--;break;
+        case 3: j++;break;
+    }
+}
+
+void dfs(int k)
+{
+    if(k == 0)
+        return;
+    if(my[x][y] == 0)
+    {
+        my[x][y] = 1;
+        translation(x,y,dire[dir][0]);
+    }
+    else
+    {
+        my[x][y] = 0;
+        translation(x,y,dire[dir][1]);
+    }
+    dfs(k-1);
+}
+
+void fangx()
+{
+    switch (s)
+    {
+        case 'U': dir = 0;break;
+        case 'D': dir = 1;break;
+        case 'L': dir = 2;break;
+        case 'R': dir = 3;break;
+    }
+}
+
+int main()
+{
+    memset(my,0,sizeof(my));
+    scanf("%d %d",&n,&m);
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<m;j++)
+        {
+            scanf("%d",&my[i][j]);
+        }
+    }
+    scanf("%d %d %c %d",&x,&y,&s,&k);
+    fangx();
+    dfs(k);
+    printf("%d %d\n",x,y);
+    return 0;
+}
