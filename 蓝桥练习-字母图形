@@ -1,0 +1,44 @@
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+using namespace std;
+
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    char a[30][30];
+    int i,j,flag;
+    
+    a[0][0] = 'A';
+    for(i=1;i<n;i++)
+        a[i][0] = a[i-1][0] + 1;
+    
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<m;j++)
+        {
+            if(a[i][j] >= 'A')
+                a[i][j+1] = a[i][j] - 1;
+            if(a[i][j] == 'A')
+            {
+                flag = j;
+                for(j=flag+1;j<m;j++)
+                {
+                    a[i][j] = a[i][j-1] + 1;
+                }
+            }
+            
+        }
+    }
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<m;j++)
+        {
+            cout << a[i][j];
+        }
+        cout << endl;
+    }
+    return 0;
+}
+//考虑5 4的情况（m<n
